@@ -1,0 +1,67 @@
+doctype html
+html(lang='ES')
+  head
+    meta(name='viewport', content='width=device-width, initial-scale=1, user-scalable=no')
+    meta(charset='utf-8')
+    title Title Page
+    link(rel='apple-touch-icon', sizes='57x57', href='/apple-icon-57x57.png')
+    link(rel='apple-touch-icon', sizes='60x60', href='/apple-icon-60x60.png')
+    link(rel='apple-touch-icon', sizes='72x72', href='/apple-icon-72x72.png')
+    link(rel='apple-touch-icon', sizes='76x76', href='/apple-icon-76x76.png')
+    link(rel='apple-touch-icon', sizes='114x114', href='/apple-icon-114x114.png')
+    link(rel='apple-touch-icon', sizes='120x120', href='/apple-icon-120x120.png')
+    link(rel='apple-touch-icon', sizes='144x144', href='/apple-icon-144x144.png')
+    link(rel='apple-touch-icon', sizes='152x152', href='/apple-icon-152x152.png')
+    link(rel='apple-touch-icon', sizes='180x180', href='/apple-icon-180x180.png')
+    link(rel='icon', type='image/png', sizes='192x192', href='/android-icon-192x192.png')
+    link(rel='icon', type='image/png', sizes='32x32', href='/favicon-32x32.png')
+    link(rel='icon', type='image/png', sizes='96x96', href='/favicon-96x96.png')
+    link(rel='icon', type='image/png', sizes='16x16', href='/favicon-16x16.png')
+    link(rel='manifest', href='/manifest.json')
+    meta(name='msapplication-TileColor', content='#ffffff')
+    meta(name='msapplication-TileImage', content='/ms-icon-144x144.png')
+    link(href='https://fonts.googleapis.com/css?family=Prompt|Indie+Flower', rel='stylesheet')
+    link(rel='stylesheet', href='app.css')
+  body
+    section#main-container
+      .container
+        .row
+          .col.s10.push-s1
+            .row
+              .col.m5.hide-on-small-only
+                img.iphone(src='iphone5-mano.png', alt='Iphone App')
+              .col.s12.m7
+                .row
+                  .signup-box
+                    h1.platzigram Platzigram
+                    form.signup-form(action='')
+                      h2 Regístrate para ver fotos
+                      .section
+                        a.btn.btn-fb.hiden-on-small-only(href='') Iniciar sesión con Facebook
+                        a.btn.btn-fb.hide-on-med-and-up(href='') Iniciar sesión
+                      .divider
+                      .section
+                        input(type='email', name='email', placeholder='Correo electrónico')
+                        input(type='text', name='name', placeholder='Nombre completo')
+                        input(type='text', name='username', placeholder='Nombre de usuario')
+                        input(type='password', name='password', placeholder='Contraseña')
+                        button.btn.waves-effect.waves-light.btn-singup(type='submit') Regístrate
+                .row
+                  .login-box
+                    | Tienes una cuenta? 
+                    a(href='/signin') Entrar
+    footer.site-footer
+      .container
+        .row
+          .col.s12.l3.center-align
+            a.dropdown-button.btn.btn-flat(href='#', data-activates='dropdown1') Idioma
+            ul#dropdown1.dropdown-content
+              li
+                a(href='#!') Español
+              li
+                a(href='#!') Inglés
+          .col.s12.l3.push-l6.center-align
+            | © 2016 Platzigram
+    script(src='https://code.jquery.com/jquery-3.1.0.min.js', integrity='sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s=', crossorigin='anonymous')
+    // Compiled and minified JavaScript
+    script(src='https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js')
