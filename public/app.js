@@ -2457,9 +2457,26 @@ var template = require('./template');
 var empty = require('empty-element');
 
 page('/', function (ctx, next) {
-	title('Platzigram - Singin');
+	title('Platzigram - Home Page');
 	var main = document.getElementById('main-container');
-	empty(main).appendChild(template);
+	var pictures = [{
+		user: {
+			username: 'ronny',
+			avatar: 'https://scontent-atl3-1.xx.fbcdn.net/v/t1.0-9/13882413_10210206439176043_3723183845605473911_n.jpg?oh=67736ea6bc97a3c64fc266246f46cbd0&oe=587DAEB5'
+		},
+		url: 'office.jpg',
+		likes: 10,
+		liked: true
+	}, {
+		user: {
+			username: 'ronny',
+			avatar: 'https://scontent-atl3-1.xx.fbcdn.net/v/t1.0-9/13882413_10210206439176043_3723183845605473911_n.jpg?oh=67736ea6bc97a3c64fc266246f46cbd0&oe=587DAEB5'
+		},
+		url: 'office.jpg',
+		likes: 24,
+		liked: true
+	}];
+	empty(main).appendChild(template(pictures));
 });
 
 page();
@@ -2467,18 +2484,23 @@ page();
 },{"./template":18,"empty-element":3,"page":11,"title":14,"yo-yo":15}],18:[function(require,module,exports){
 var layout = require('../layout');
 var yo = require('yo-yo');
+var picture = require('../pictures-card');
 
-var template = yo`<div class="container timelime">
-	<div class="row">
-		<div class="col s12 m10 offset-1 l6 offset-l3">
-			content
-		</div>
-	</div>
-</div>`;
+module.exports = function (pictures) {
+	var el = yo`<div class="container timelime">
+					<div class="row">
+						<div class="col s12 m10 offset-1 l6 offset-l3">
+							${ pictures.map(function (pic) {
+		return picture(pic);
+	}) }
+						</div>
+					</div>
+				</div>`;
 
-module.exports = layout(template);
+	return layout(el);
+};
 
-},{"../layout":21,"yo-yo":15}],19:[function(require,module,exports){
+},{"../layout":21,"../pictures-card":22,"yo-yo":15}],19:[function(require,module,exports){
 var page = require('page');
 
 require('./homepage');
@@ -2489,7 +2511,7 @@ require('./singin');
 
 page();
 
-},{"./homepage":17,"./singin":22,"./singup":24,"page":11}],20:[function(require,module,exports){
+},{"./homepage":17,"./singin":23,"./singup":25,"page":11}],20:[function(require,module,exports){
 var yo = require('yo-yo');
 
 module.exports = function landing(box) {
@@ -2522,8 +2544,8 @@ module.exports = function layout(content) {
 								<div class="col s12 m6 offset-m1">
 									<a href="${ home_path }" class="brand-logo platzigram">Platzigram</a>
 								</div>
-								<div class="col s2 m6 push-s10 push-m10">
-									<a href="#" class="btn btn-large btn-flat dropdown-button" data-activates="dropdown-user">
+								<div class="col s2 m6" style="float:right;">
+									<a href="#" class="btn btn-large btn-flat dropdown-button" data-activates="dropdown-user" style="float:right;">
 										<i class="fa fa-user" aria-hidden="true"></i>
 									</a>
 									<ul id="dropdown-user" class="dropdown-content">
@@ -2542,6 +2564,30 @@ module.exports = function layout(content) {
 };
 
 },{"yo-yo":15}],22:[function(require,module,exports){
+var yo = require('yo-yo');
+
+module.exports = function (pic) {
+		return yo`<div class="card">
+		    <div class="card-image waves-effect waves-block waves-light">
+		      <img class="activator" src="${ pic.url }">
+		    </div>
+		    <div class="card-content">
+		      <a href="/user/${ pic.user.username }" class="card-title">
+				<img src="${ pic.user.avatar }" alt="${ pic.user.username }" class="circle avatar" />
+				<span class="username">${ pic.user.username }</span>
+		      </a>
+		      <small class="right time">Hace 1 día</small>
+		      <p>
+				<a class="left" href="#">
+					<i class="fa fa-heart-o" aria-hidden="true"></i>
+				</a>
+				<span class="left likes"> ${ pic.likes } me gusta</span>
+		      </p>
+		    </div>
+		  </div>`;
+};
+
+},{"yo-yo":15}],23:[function(require,module,exports){
 var page = require('page');
 var empty = require('empty-element');
 var template = require('./template');
@@ -2555,7 +2601,7 @@ page('/singin', function (ctx, next) {
 
 page();
 
-},{"./template":23,"empty-element":3,"page":11,"title":14}],23:[function(require,module,exports){
+},{"./template":24,"empty-element":3,"page":11,"title":14}],24:[function(require,module,exports){
 var yo = require('yo-yo');
 var landing = require('../landing');
 
@@ -2589,7 +2635,7 @@ var singinForm = yo`<div class="col s12 m7">
 
 module.exports = landing(singinForm);
 
-},{"../landing":20,"yo-yo":15}],24:[function(require,module,exports){
+},{"../landing":20,"yo-yo":15}],25:[function(require,module,exports){
 var page = require('page');
 var empty = require('empty-element');
 var template = require('./template');
@@ -2603,7 +2649,7 @@ page('/singup', function (ctx, next) {
 
 page();
 
-},{"./template":25,"empty-element":3,"page":11,"title":14}],25:[function(require,module,exports){
+},{"./template":26,"empty-element":3,"page":11,"title":14}],26:[function(require,module,exports){
 var yo = require('yo-yo');
 var landing = require('../landing');
 

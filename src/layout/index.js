@@ -13,8 +13,8 @@ module.exports = function layout(content) {
 								<div class="col s12 m6 offset-m1">
 									<a href="${ home_path }" class="brand-logo platzigram">Platzigram</a>
 								</div>
-								<div class="col s2 m6 push-s10 push-m10">
-									<a href="#" class="btn btn-large btn-flat dropdown-button" data-activates="dropdown-user">
+								<div class="col s2 m6" style="float:right;">
+									<a href="#" class="btn btn-large btn-flat dropdown-button" data-activates="dropdown-user" style="float:right;">
 										<i class="fa fa-user" aria-hidden="true"></i>
 									</a>
 									<ul id="dropdown-user" class="dropdown-content">
