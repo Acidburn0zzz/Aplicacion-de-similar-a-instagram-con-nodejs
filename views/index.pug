@@ -24,32 +24,7 @@ html(lang='ES')
     link(rel='stylesheet', href='app.css')
   body
     section#main-container
-      .container
-        .row
-          .col.s10.push-s1
-            .row
-              .col.m5.hide-on-small-only
-                img.iphone(src='iphone5-mano.png', alt='Iphone App')
-              .col.s12.m7
-                .row
-                  .signup-box
-                    h1.platzigram Platzigram
-                    form.signup-form(action='')
-                      h2 Regístrate para ver fotos
-                      .section
-                        a.btn.btn-fb.hiden-on-small-only(href='') Iniciar sesión con Facebook
-                        a.btn.btn-fb.hide-on-med-and-up(href='') Iniciar sesión
-                      .divider
-                      .section
-                        input(type='email', name='email', placeholder='Correo electrónico')
-                        input(type='text', name='name', placeholder='Nombre completo')
-                        input(type='text', name='username', placeholder='Nombre de usuario')
-                        input(type='password', name='password', placeholder='Contraseña')
-                        button.btn.waves-effect.waves-light.btn-singup(type='submit') Regístrate
-                .row
-                  .login-box
-                    | Tienes una cuenta? 
-                    a(href='/signin') Entrar
+      
     footer.site-footer
       .container
         .row

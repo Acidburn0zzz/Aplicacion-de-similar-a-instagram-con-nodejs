@@ -11,9 +11,12 @@
   "author": "Platzi",
   "license": "MIT",
   "dependencies": {
+    "empty-element": "^1.0.0",
     "express": "^4.14.0",
     "materialize-css": "^0.97.7",
-    "pug": "^2.0.0-beta6"
+    "page": "^1.7.1",
+    "pug": "^2.0.0-beta6",
+    "yo-yo": "^1.2.2"
   },
   "devDependencies": {
     "babelify": "^7.3.0",
@@ -22,6 +25,11 @@
     "gulp-rename": "^1.2.2",
     "gulp-sass": "^2.3.2",
     "gulp-uglifycss": "^1.0.6",
-    "vinyl-source-stream": "^1.1.0"
+    "vinyl-source-stream": "^1.1.0",
+    "watchify": "^3.7.0"
+  },
+  "scripts": {
+    "build": "gulp",
+    "start": "gulp watch & node server.js"
   }
 }

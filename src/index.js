@@ -1,5 +1,9 @@
-var numeros = [ 434, 234, 122, -343 ];
+var page = require('page');
 
-var numerosMas1 = numeros.map(n => n + 1);
+require('./homepage');
 
-console.log(numerosMas1);
+require('./singup');
+
+require('./singin');
+
+page();
