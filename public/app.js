@@ -2353,6 +2353,29 @@ process.chdir = function (dir) {
 process.umask = function() { return 0; };
 
 },{}],14:[function(require,module,exports){
+
+var orig = document.title;
+
+exports = module.exports = set;
+
+function set(str) {
+  var i = 1;
+  var args = arguments;
+  document.title = str.replace(/%[os]/g, function(_){
+    switch (_) {
+      case '%o':
+        return orig;
+      case '%s':
+        return args[i++];
+    }
+  });
+}
+
+exports.reset = function(){
+  set(orig);
+};
+
+},{}],15:[function(require,module,exports){
 var bel = require('bel') // turns template tag into DOM elements
 var morphdom = require('morphdom') // efficiently diffs + morphs two DOM elements
 var defaultEvents = require('./update-events.js') // default events to be copied when dom elements update
@@ -2388,7 +2411,7 @@ module.exports.update = function (fromNode, toNode, opts) {
   }
 }
 
-},{"./update-events.js":15,"bel":1,"morphdom":9}],15:[function(require,module,exports){
+},{"./update-events.js":16,"bel":1,"morphdom":9}],16:[function(require,module,exports){
 module.exports = [
   // attribute events (can be set with attributes)
   'onclick',
@@ -2426,18 +2449,56 @@ module.exports = [
   'onfocusout'
 ]
 
-},{}],16:[function(require,module,exports){
+},{}],17:[function(require,module,exports){
 var page = require('page');
 var yo = require('yo-yo');
+var title = require('title');
+var template = require('./template');
+var empty = require('empty-element');
 
 page('/', function (ctx, next) {
+	title('Platzigram - Singin');
 	var main = document.getElementById('main-container');
-	main.innerHTML = '<a href="/singup">Singup</a>';
+	empty(main).appendChild(template);
 });
 
 page();
 
-},{"page":11,"yo-yo":14}],17:[function(require,module,exports){
+},{"./template":18,"empty-element":3,"page":11,"title":14,"yo-yo":15}],18:[function(require,module,exports){
+var yo = require('yo-yo');
+
+var singin_path = '/singin';
+
+var home_path = '/';
+
+var singup_path = '/singup';
+
+var template = yo`<nav class="header">
+	<div class="nav-wrapper">
+		<div class="container">
+			<div class="row">
+				<div class="col s12 m6 offset-m1">
+					<a href="${ home_path }" class="brand-logo platzigram">Platzigram</a>
+				</div>
+				<div class="col s2 m6 push-m10">
+					<a href="#" class="btn btn-large btn-flat dropdown-button" data-activates="dropdown-user">
+						<i class="fa fa-user" aria-hidden="true"></i>
+					</a>
+					<ul id="dropdown-user" class="dropdown-content">
+						<li><a href="${ singup_path }">Acceder</a></li>
+						<li><a href="#">Salir</a></li>
+					</ul>
+
+
+				</div>
+			</div>
+		</div>
+	</div>	
+</nav>`;
+
+module.exports = template;
+
+},{"yo-yo":15}],19:[function(require,module,exports){
 var page = require('page');
 
 require('./homepage');
@@ -2448,7 +2509,7 @@ require('./singin');
 
 page();
 
-},{"./homepage":16,"./singin":19,"./singup":21,"page":11}],18:[function(require,module,exports){
+},{"./homepage":17,"./singin":21,"./singup":23,"page":11}],20:[function(require,module,exports){
 var yo = require('yo-yo');
 
 module.exports = function landing(box) {
@@ -2466,19 +2527,21 @@ module.exports = function landing(box) {
 			</div>`;
 };
 
-},{"yo-yo":14}],19:[function(require,module,exports){
+},{"yo-yo":15}],21:[function(require,module,exports){
 var page = require('page');
 var empty = require('empty-element');
 var template = require('./template');
+var title = require('title');
 
 page('/singin', function (ctx, next) {
+	title('Platzigram - Singin');
 	var main = document.getElementById('main-container');
 	empty(main).appendChild(template);
 });
 
 page();
 
-},{"./template":20,"empty-element":3,"page":11}],20:[function(require,module,exports){
+},{"./template":22,"empty-element":3,"page":11,"title":14}],22:[function(require,module,exports){
 var yo = require('yo-yo');
 var landing = require('../landing');
 
@@ -2497,7 +2560,8 @@ var singinForm = yo`<div class="col s12 m7">
 											<div class="section">
 												<input type="text" name="username" placeholder="Nombre de usuario">
 												<input type="password" name="password" placeholder="Contraseña">
-												<button class="btn waves-effect waves-light btn-singup" type="submit">Inicia Seción</button>
+												<button class="btn waves-effect waves-light btn-singup" type="submit"><i class="fa fa-facebook-square" aria-hidden="true"></i>
+ Inicia Seción</button>
 											</div>
 										</form>
 									</div>
@@ -2511,19 +2575,21 @@ var singinForm = yo`<div class="col s12 m7">
 
 module.exports = landing(singinForm);
 
-},{"../landing":18,"yo-yo":14}],21:[function(require,module,exports){
+},{"../landing":20,"yo-yo":15}],23:[function(require,module,exports){
 var page = require('page');
 var empty = require('empty-element');
 var template = require('./template');
+var title = require('title');
 
 page('/singup', function (ctx, next) {
+	title('Platzigram - Singup');
 	var main = document.getElementById('main-container');
 	empty(main).appendChild(template);
 });
 
 page();
 
-},{"./template":22,"empty-element":3,"page":11}],22:[function(require,module,exports){
+},{"./template":24,"empty-element":3,"page":11,"title":14}],24:[function(require,module,exports){
 var yo = require('yo-yo');
 var landing = require('../landing');
 
@@ -2537,7 +2603,7 @@ var singupFor = yo`<div class="col s12 m7">
 											<h2>Regístrate para ver fotos</h2>
 											<div class="section">
 												<a href="" class="btn btn-fb hide-on-small-only">Iniciar sesión con Facebook</a>
-												<a href="" class="btn btn-fb hide-on-med-and-up">Iniciar sesión</a>
+												<a href="" class="btn btn-fb hide-on-med-and-up"><i class="fa fa-facebook-square" aria-hidden="true"></i> Iniciar sesión</a>
 											</div>
 											<div class="divider"></div>
 											<div class="section">
@@ -2559,4 +2625,4 @@ var singupFor = yo`<div class="col s12 m7">
 
 module.exports = landing(singupFor);
 
-},{"../landing":18,"yo-yo":14}]},{},[17]);
+},{"../landing":20,"yo-yo":15}]},{},[19]);

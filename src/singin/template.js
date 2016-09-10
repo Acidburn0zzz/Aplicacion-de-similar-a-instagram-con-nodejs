@@ -16,7 +16,8 @@ var singinForm = yo`<div class="col s12 m7">
 											<div class="section">
 												<input type="text" name="username" placeholder="Nombre de usuario">
 												<input type="password" name="password" placeholder="Contraseña">
-												<button class="btn waves-effect waves-light btn-singup" type="submit">Inicia Seción</button>
+												<button class="btn waves-effect waves-light btn-singup" type="submit"><i class="fa fa-facebook-square" aria-hidden="true"></i>
+ Inicia Seción</button>
 											</div>
 										</form>
 									</div>

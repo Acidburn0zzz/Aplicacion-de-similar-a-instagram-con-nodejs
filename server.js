@@ -7,15 +7,15 @@ app.set('view engine', 'pug');
 app.use(express.static('public'));
 
 app.get('/', function(req, res){
-	res.render('index')
+	res.render('index', { title: 'Platzigram' });
 });
 
 app.get('/singup', function(req, res){
-	res.render('index')
+	res.render('index', { title: 'Platzigram - Singup' })
 });
 
 app.get('/singin', function(req, res){
-	res.render('index')
+	res.render('index', { title: 'Platzigram - Singin' })
 });
 
 app.listen(3000, function (err){
