@@ -2465,40 +2465,20 @@ page('/', function (ctx, next) {
 page();
 
 },{"./template":18,"empty-element":3,"page":11,"title":14,"yo-yo":15}],18:[function(require,module,exports){
+var layout = require('../layout');
 var yo = require('yo-yo');
 
-var singin_path = '/singin';
-
-var home_path = '/';
-
-var singup_path = '/singup';
-
-var template = yo`<nav class="header">
-	<div class="nav-wrapper">
-		<div class="container">
-			<div class="row">
-				<div class="col s12 m6 offset-m1">
-					<a href="${ home_path }" class="brand-logo platzigram">Platzigram</a>
-				</div>
-				<div class="col s2 m6 push-m10">
-					<a href="#" class="btn btn-large btn-flat dropdown-button" data-activates="dropdown-user">
-						<i class="fa fa-user" aria-hidden="true"></i>
-					</a>
-					<ul id="dropdown-user" class="dropdown-content">
-						<li><a href="${ singup_path }">Acceder</a></li>
-						<li><a href="#">Salir</a></li>
-					</ul>
-
-
-				</div>
-			</div>
+var template = yo`<div class="container timelime">
+	<div class="row">
+		<div class="col s12 m10 offset-1 l6 offset-l3">
+			content
 		</div>
-	</div>	
-</nav>`;
+	</div>
+</div>`;
 
-module.exports = template;
+module.exports = layout(template);
 
-},{"yo-yo":15}],19:[function(require,module,exports){
+},{"../layout":21,"yo-yo":15}],19:[function(require,module,exports){
 var page = require('page');
 
 require('./homepage');
@@ -2509,11 +2489,11 @@ require('./singin');
 
 page();
 
-},{"./homepage":17,"./singin":21,"./singup":23,"page":11}],20:[function(require,module,exports){
+},{"./homepage":17,"./singin":22,"./singup":24,"page":11}],20:[function(require,module,exports){
 var yo = require('yo-yo');
 
 module.exports = function landing(box) {
-	return yo`<div class="container">
+	return yo`<div class="container landing">
 				<div class="row">
 					<div class="col s10 push-s1">
 						<div class="row">
@@ -2528,6 +2508,40 @@ module.exports = function landing(box) {
 };
 
 },{"yo-yo":15}],21:[function(require,module,exports){
+var yo = require('yo-yo');
+
+var home_path = '/';
+var singup_path = '/singup';
+
+module.exports = function layout(content) {
+	return yo`<div>
+				<nav class="header">
+					<div class="nav-wrapper">
+						<div class="container">
+							<div class="row">
+								<div class="col s12 m6 offset-m1">
+									<a href="${ home_path }" class="brand-logo platzigram">Platzigram</a>
+								</div>
+								<div class="col s2 m6 push-s10 push-m10">
+									<a href="#" class="btn btn-large btn-flat dropdown-button" data-activates="dropdown-user">
+										<i class="fa fa-user" aria-hidden="true"></i>
+									</a>
+									<ul id="dropdown-user" class="dropdown-content">
+										<li><a href="${ singup_path }">Acceder</a></li>
+										<li><a href="#">Salir</a></li>
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>	
+				</nav>
+				<div class="content">
+					${ content }
+				</div>
+			</div>`;
+};
+
+},{"yo-yo":15}],22:[function(require,module,exports){
 var page = require('page');
 var empty = require('empty-element');
 var template = require('./template');
@@ -2541,7 +2555,7 @@ page('/singin', function (ctx, next) {
 
 page();
 
-},{"./template":22,"empty-element":3,"page":11,"title":14}],22:[function(require,module,exports){
+},{"./template":23,"empty-element":3,"page":11,"title":14}],23:[function(require,module,exports){
 var yo = require('yo-yo');
 var landing = require('../landing');
 
@@ -2575,7 +2589,7 @@ var singinForm = yo`<div class="col s12 m7">
 
 module.exports = landing(singinForm);
 
-},{"../landing":20,"yo-yo":15}],23:[function(require,module,exports){
+},{"../landing":20,"yo-yo":15}],24:[function(require,module,exports){
 var page = require('page');
 var empty = require('empty-element');
 var template = require('./template');
@@ -2589,7 +2603,7 @@ page('/singup', function (ctx, next) {
 
 page();
 
-},{"./template":24,"empty-element":3,"page":11,"title":14}],24:[function(require,module,exports){
+},{"./template":25,"empty-element":3,"page":11,"title":14}],25:[function(require,module,exports){
 var yo = require('yo-yo');
 var landing = require('../landing');
 
