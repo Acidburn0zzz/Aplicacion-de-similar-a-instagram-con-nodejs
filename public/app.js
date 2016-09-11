@@ -8827,7 +8827,7 @@ page('/', function (ctx, next) {
 			avatar: 'https://scontent-atl3-1.xx.fbcdn.net/v/t1.0-9/13882413_10210206439176043_3723183845605473911_n.jpg?oh=67736ea6bc97a3c64fc266246f46cbd0&oe=587DAEB5'
 		},
 		url: 'office.jpg',
-		likes: 10,
+		likes: 0,
 		liked: false,
 		createdAt: new Date()
 	}, {
@@ -8836,7 +8836,7 @@ page('/', function (ctx, next) {
 			avatar: 'https://scontent-atl3-1.xx.fbcdn.net/v/t1.0-9/13882413_10210206439176043_3723183845605473911_n.jpg?oh=67736ea6bc97a3c64fc266246f46cbd0&oe=587DAEB5'
 		},
 		url: 'office.jpg',
-		likes: 24,
+		likes: 1,
 		liked: true,
 		createdAt: new Date().setDate(new Date().getDate() - 10)
 	}];
@@ -8934,18 +8934,7 @@ module.exports = function layout(content) {
 },{"yo-yo":36}],43:[function(require,module,exports){
 var yo = require('yo-yo');
 //var moment = require('moment');
-if (!window.Intl) {
-	window.Intl = require('intl');
-	require('intl/locale-data/jsonp/en-US.js');
-	require('intl/locale-data/jsonp/es.js');
-}
-
-var IntlRelativeFormat = window.IntlRelativeFormat = require('intl-relativeformat');
-
-require('intl-relativeformat/dist/locale-data/en.js');
-require('intl-relativeformat/dist/locale-data/es.js');
-
-var rf = new IntlRelativeFormat('en-US');
+var translate = require('../translate');
 
 module.exports = function pictureCard(pic) {
 	var el;
@@ -8959,11 +8948,11 @@ module.exports = function pictureCard(pic) {
 				<img src="${ pic.user.avatar }" alt="${ pic.user.username }" class="circle avatar" />
 				<span class="username">${ pic.user.username }</span>
 		      </a>
-		      <small class="right time">${ rf.format(picture.createdAt) }</small>
+		      <small class="right time">${ translate.date.format(picture.createdAt) }</small>
 		      <p>
 				<a href="#" class="left" onclick=${ like.bind(null, true) }><i class="fa fa-heart-o" aria-hidden="true"></i></a>
 				<a href="#" class="left" onclick=${ like.bind(null, false) }><i class="fa fa-heart" aria-hidden="true"></i></a>
-					<span class="left likes"> ${ pic.likes } me gusta</span>
+					<span class="left likes">${ translate.message('likes', { likes: picture.likes }) }</span>
 		      </p>
 		    </div>
 		  </div>`;
@@ -8982,7 +8971,7 @@ module.exports = function pictureCard(pic) {
 	return el;
 };
 
-},{"intl":25,"intl-relativeformat":19,"intl-relativeformat/dist/locale-data/en.js":17,"intl-relativeformat/dist/locale-data/es.js":18,"intl/locale-data/jsonp/en-US.js":27,"intl/locale-data/jsonp/es.js":28,"yo-yo":36}],44:[function(require,module,exports){
+},{"../translate":50,"yo-yo":36}],44:[function(require,module,exports){
 var page = require('page');
 var empty = require('empty-element');
 var template = require('./template');
@@ -9080,4 +9069,46 @@ var singupFor = yo`<div class="col s12 m7">
 
 module.exports = landing(singupFor);
 
-},{"../landing":41,"yo-yo":36}]},{},[40]);
+},{"../landing":41,"yo-yo":36}],48:[function(require,module,exports){
+module.exports = {
+           likes: '{ likes, plural, ' + '=0 { no likes }' + '=1 { # like }' + 'other {# likes }}'
+};
+
+},{}],49:[function(require,module,exports){
+module.exports = {
+	likes: '{ likes, number } me gusta'
+};
+
+},{}],50:[function(require,module,exports){
+if (!window.Intl) {
+	window.Intl = require('intl');
+	require('intl/locale-data/jsonp/en-US.js');
+	require('intl/locale-data/jsonp/es.js');
+}
+
+var IntlRelativeFormat = window.IntlRelativeFormat = require('intl-relativeformat');
+var IntlMessageFormat = require('intl-messageformat');
+
+require('intl-relativeformat/dist/locale-data/en.js');
+require('intl-relativeformat/dist/locale-data/es.js');
+
+var es = require('./es');
+var en = require('./en-US');
+
+var MESSAGES = {};
+
+MESSAGES.es = es;
+MESSAGES['en-US'] = en;
+
+var locale = 'en-US';
+
+module.exports = {
+	message: function (text, opts) {
+		opts = opts || {};
+		var msg = new IntlMessageFormat(MESSAGES[locale][text], locale, null);
+		return msg.format(opts);
+	},
+	date: new IntlRelativeFormat(locale)
+};
+
+},{"./en-US":48,"./es":49,"intl":25,"intl-messageformat":10,"intl-relativeformat":19,"intl-relativeformat/dist/locale-data/en.js":17,"intl-relativeformat/dist/locale-data/es.js":18,"intl/locale-data/jsonp/en-US.js":27,"intl/locale-data/jsonp/es.js":28}]},{},[40]);
